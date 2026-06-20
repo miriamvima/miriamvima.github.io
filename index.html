@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miriam Villarreal · UX/UI Designer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green: #00543C;
+      --purple: #3D1A6E;
+      --blue: #1A56DB;
+      --bg: #f8f9fa;
+      --text: #111;
+      --muted: #666;
+      --border: #e5e7eb;
+    }
+
+    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+
+    /* NAV */
+    nav { position: fixed; top: 0; width: 100%; background: rgba(248,249,250,0.92); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); z-index: 100; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; height: 56px; }
+    .nav-logo { font-weight: 700; font-size: 15px; color: var(--text); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero { min-height: 100vh; display: flex; align-items: center; padding: 80px 2rem 60px; max-width: 900px; margin: 0 auto; }
+    .hero-content { flex: 1; }
+    .hero-tag { display: inline-flex; align-items: center; gap: 8px; background: #fff; border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px; font-size: 12px; color: var(--muted); margin-bottom: 24px; }
+    .hero-tag span { width: 6px; height: 6px; border-radius: 50%; background: #4ADE80; display: inline-block; }
+    h1 { font-size: clamp(36px, 6vw, 60px); font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+    h1 em { font-style: normal; background: linear-gradient(135deg, var(--green), var(--blue)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub { font-size: 17px; color: var(--muted); max-width: 480px; margin-bottom: 32px; }
+    .hero-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 22px; border-radius: 8px; font-size: 14px; font-weight: 500; text-decoration: none; transition: all .2s; cursor: pointer; border: none; }
+    .btn-primary { background: var(--text); color: #fff; }
+    .btn-primary:hover { background: #333; }
+    .btn-secondary { background: #fff; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { border-color: #aaa; }
+
+    /* COLOR BAR */
+    .color-bar { display: flex; height: 4px; border-radius: 2px; overflow: hidden; width: 80px; margin-bottom: 32px; }
+    .color-bar div { flex: 1; }
+
+    /* SECTION */
+    section { max-width: 900px; margin: 0 auto; padding: 80px 2rem; }
+    .section-label { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px; }
+    h2 { font-size: 28px; font-weight: 700; margin-bottom: 40px; }
+
+    /* PROYECTOS */
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .project-card { background: #fff; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; transition: transform .2s, box-shadow .2s; text-decoration: none; color: var(--text); display: block; }
+    .project-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+    .card-header { height: 120px; display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden; }
+    .card-num { font-size: 80px; font-weight: 700; color: rgba(255,255,255,0.12); position: absolute; right: 10px; bottom: -10px; line-height: 1; }
+    .card-body { padding: 1.25rem; }
+    .card-tag { font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.7); background: rgba(255,255,255,0.15); border-radius: 20px; padding: 3px 10px; display: inline-block; margin-bottom: 8px; }
+    .card-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; }
+    .card-desc { font-size: 13px; color: var(--muted); line-height: 1.5; margin-bottom: 14px; }
+    .card-link { font-size: 12px; font-weight: 500; display: inline-flex; align-items: center; gap: 4px; }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; }
+    .skill-item { background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 1rem 1.25rem; display: flex; align-items: center; gap: 12px; }
+    .skill-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .skill-name { font-size: 14px; font-weight: 500; }
+
+    /* ABOUT */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: start; }
+    .about-text { font-size: 15px; color: var(--muted); line-height: 1.8; }
+    .about-text p { margin-bottom: 16px; }
+    .about-info { display: flex; flex-direction: column; gap: 12px; }
+    .info-item { display: flex; align-items: center; gap: 12px; background: #fff; border: 1px solid var(--border); border-radius: 10px; padding: 0.9rem 1rem; font-size: 13px; }
+    .info-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+    /* CONTACT */
+    .contact-box { background: var(--text); border-radius: 16px; padding: 3rem; text-align: center; color: #fff; }
+    .contact-box h2 { color: #fff; margin-bottom: 12px; }
+    .contact-box p { color: rgba(255,255,255,0.6); margin-bottom: 28px; font-size: 15px; }
+    .contact-links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .contact-link { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; padding: 10px 20px; font-size: 13px; font-weight: 500; text-decoration: none; transition: background .2s; }
+    .contact-link:hover { background: rgba(255,255,255,0.18); }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 2rem; font-size: 12px; color: var(--muted); border-top: 1px solid var(--border); }
+
+    @media (max-width: 600px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <span class="nav-logo">Miriam Villarreal</span>
+    <ul class="nav-links">
+      <li><a href="#proyectos">Proyectos</a></li>
+      <li><a href="#sobre-mi">Sobre mí</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-content">
+      <div class="hero-tag"><span></span> Disponible para trabajo remoto · Open to work</div>
+      <div class="color-bar">
+        <div style="background: var(--green);"></div>
+        <div style="background: var(--purple);"></div>
+        <div style="background: var(--blue);"></div>
+      </div>
+      <h1>Diseñadora <em>UX/UI</em><br>con alma de investigadora</h1>
+      <p class="hero-sub">Investigo primero, diseño después. Especializada en UX Research, con raíces en marketing y experiencia en Figma y Maze.</p>
+      <div class="hero-btns">
+        <a href="https://www.behance.net/miriamvima" target="_blank" class="btn btn-primary">Ver portafolio en Behance</a>
+        <a href="#contacto" class="btn btn-secondary">Contacto</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROYECTOS -->
+  <section id="proyectos">
+    <p class="section-label">Casos de estudio · Case studies</p>
+    <h2>Proyectos destacados</h2>
+    <div class="projects-grid">
+
+      <a href="https://www.behance.net/gallery/251122483/IMSS-Accesible-Rediseno-de-acceso-biomtrico" target="_blank" class="project-card">
+        <div class="card-header" style="background: var(--green);">
+          <span style="font-size:13px; color:#fff; font-weight:600; z-index:1; padding: 0 1rem; text-align:center;">UX/UI · Accesibilidad</span>
+          <span class="card-num">01</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">IMSS Accesible</div>
+          <p class="card-desc">Rediseño del login con autenticación biométrica para adultos mayores. De CURP/NSS a huella y Face ID.</p>
+          <span class="card-link" style="color: var(--green);">Ver proyecto →</span>
+        </div>
+      </a>
+
+      <a href="https://www.behance.net/gallery/251317789/VoxStage-Prueba-de-usabilidad-Votacion" target="_blank" class="project-card">
+        <div class="card-header" style="background: var(--purple);">
+          <span style="font-size:13px; color:#fff; font-weight:600; z-index:1; padding: 0 1rem; text-align:center;">UX Research · Usability Test</span>
+          <span class="card-num">02</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">VoxStage</div>
+          <p class="card-desc">Prueba de usabilidad no moderada con Maze. El 100% de éxito técnico ocultaba que solo el 50% completó el flujo con intención real.</p>
+          <span class="card-link" style="color: var(--purple);">Ver proyecto →</span>
+        </div>
+      </a>
+
+      <a href="https://www.behance.net/miriamvima" target="_blank" class="project-card">
+        <div class="card-header" style="background: var(--blue);">
+          <span style="font-size:13px; color:#fff; font-weight:600; z-index:1; padding: 0 1rem; text-align:center;">UX Research · E-commerce</span>
+          <span class="card-num">03</span>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Mercado Libre</div>
+          <p class="card-desc">Investigación cualitativa sobre el proceso de pago. Hallazgo clave: la confianza y claridad pesan más que la rapidez del flujo.</p>
+          <span class="card-link" style="color: var(--blue);">Ver proyecto →</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section>
+    <p class="section-label">Herramientas y habilidades</p>
+    <h2>¿Con qué trabajo?</h2>
+    <div class="skills-grid">
+      <div class="skill-item"><div class="skill-dot" style="background:var(--green)"></div><span class="skill-name">Figma</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--purple)"></div><span class="skill-name">Maze</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--blue)"></div><span class="skill-name">UX Research</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--green)"></div><span class="skill-name">Entrevistas 1:1</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--purple)"></div><span class="skill-name">Usability Testing</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--blue)"></div><span class="skill-name">HTML / CSS</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--green)"></div><span class="skill-name">Wireframing</span></div>
+      <div class="skill-item"><div class="skill-dot" style="background:var(--purple)"></div><span class="skill-name">Prototipado</span></div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="sobre-mi">
+    <p class="section-label">Sobre mí · About me</p>
+    <h2>Hola, soy Miriam</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>Diseñadora UX/UI en formación con raíces en el marketing y una obsesión genuina por entender a las personas antes de diseñar para ellas.</p>
+        <p>Vengo del mundo del branding emocional y la investigación de mercados — lo que significa que antes de aprender a hacer wireframes, ya sabía escuchar.</p>
+        <p>Actualmente curso el bootcamp de UX/UI de TripleTen, donde he trabajado en proyectos reales que van desde rediseños de accesibilidad hasta pruebas de usabilidad con datos cualitativos y cuantitativos.</p>
+      </div>
+      <div class="about-info">
+        <div class="info-item"><div class="info-dot" style="background:var(--green)"></div>📍 Durango, México</div>
+        <div class="info-item"><div class="info-dot" style="background:var(--purple)"></div>🎓 TripleTen UX/UI Bootcamp</div>
+        <div class="info-item"><div class="info-dot" style="background:var(--blue)"></div>💼 Disponible para trabajo remoto</div>
+        <div class="info-item"><div class="info-dot" style="background:var(--green)"></div>🔍 Especialización en UX Research</div>
+        <div class="info-item"><div class="info-dot" style="background:var(--purple)"></div>🌎 Mercado objetivo: LATAM</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contacto">
+    <div class="contact-box">
+      <h2>¿Hablamos?</h2>
+      <p>Estoy disponible para proyectos freelance, colaboraciones y oportunidades de trabajo remoto en LATAM.</p>
+      <div class="contact-links">
+        <a href="mailto:miriam.vima13@gmail.com" class="contact-link">✉️ miriam.vima13@gmail.com</a>
+        <a href="https://www.behance.net/miriamvima" target="_blank" class="contact-link">🎨 Behance</a>
+        <a href="https://www.linkedin.com/in/miriamvima" target="_blank" class="contact-link">💼 LinkedIn</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Miriam Villarreal · Diseñado con HTML/CSS · miriamvima.github.io</p>
+  </footer>
+
+</body>
+</html>
